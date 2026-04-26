@@ -1,0 +1,55 @@
+{
+  "name": "asgard-desktop",
+  "version": "1.0.0",
+  "description": "Asgard desktop — Luck Dragon Pty Ltd",
+  "main": "main.js",
+  "scripts": {
+    "start":      "electron .",
+    "dist:mac":   "electron-builder --mac --publish always",
+    "dist:win":   "electron-builder --win --publish always",
+    "dist:linux": "electron-builder --linux --publish always",
+    "dist:local": "electron-builder --publish never"
+  },
+  "build": {
+    "appId":       "io.luckdragon.asgard",
+    "productName": "Asgard",
+    "copyright":   "Luck Dragon Pty Ltd",
+    "files": ["main.js", "preload.js", "offline.html", "assets/**"],
+    "protocols": [{ "name": "Asgard", "schemes": ["asgard"] }],
+    "publish": [{
+      "provider": "github",
+      "owner":    "PaddyGallivan",
+      "repo":     "asgard-desktop"
+    }],
+    "mac": {
+      "category":           "public.app-category.productivity",
+      "icon":               "assets/icon.icns",
+      "hardenedRuntime":    true,
+      "gatekeeperAssess":   false,
+      "target": [{ "target": "dmg", "arch": ["universal"] }]
+    },
+    "win": {
+      "icon":   "assets/icon.ico",
+      "target": [{ "target": "nsis", "arch": ["x64"] }]
+    },
+    "linux": {
+      "icon":     "assets/icon.png",
+      "target":   ["AppImage", "deb"],
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick":                       false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut":          true,
+      "createStartMenuShortcut":        true
+    }
+  },
+  "devDependencies": {
+    "electron":         "^30.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.0",
+    "electron-store":   "^8.1.0"
+  }
+}
